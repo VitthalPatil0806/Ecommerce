@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 COPY requirements.txt .
 
-RUN apt-get update && apt-get install -y postgresql-client dos2unix && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y dos2unix && rm -rf /var/lib/apt/lists/*
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
