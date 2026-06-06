@@ -30,7 +30,7 @@ async def create_user(db: AsyncSession, user: schemas.UserCreate):
     return db_user
 
 async def get_products(db: AsyncSession):
-    stmt = select(models.Product)
+    stmt = select(models.Product).order_by(models.Product.name)
     result = await db.execute(stmt)
     return result.scalars().all()
 
