@@ -47,8 +47,16 @@ const LoginRegister = () => {
         const formData = new URLSearchParams();
         formData.append('username', email);
         formData.append('password', password);
-        const response = await api.post('/auth/token', formData);
-        login(response.data.access_token);
+
+        try {
+          const response = await api.post('/auth/token', formData, {
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+          });
+          login(response.data.access_token);
+        } catch (loginErr) {
+          console.error('Registration successful, but auto-login failed:', loginErr);
+          throw new Error('Account created, but we could not log you in automatically. Please sign in manually.');
+        }
         navigate('/');
       }
     } catch (err: any) {
