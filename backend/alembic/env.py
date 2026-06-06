@@ -9,6 +9,7 @@ from alembic import context
 
 from models import Base
 import os
+from database import clean_database_url
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -29,7 +30,8 @@ target_metadata = Base.metadata
 # ... etc.
 
 def get_url():
-    return os.getenv("DATABASE_URL", "postgresql+asyncpg://ecommerce_user:ecommerce_password@localhost:5432/ecommerce_db")
+    url = os.getenv("DATABASE_URL", "postgresql+asyncpg://ecommerce_user:ecommerce_password@localhost:5432/ecommerce_db")
+    return clean_database_url(url)
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""

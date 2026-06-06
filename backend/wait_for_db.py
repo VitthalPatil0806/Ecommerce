@@ -4,11 +4,13 @@ import os
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import create_async_engine
 
+from database import clean_database_url
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "postgresql+asyncpg://ecommerce_user:ecommerce_password@localhost:5432/ecommerce_db",
 )
+DATABASE_URL = clean_database_url(DATABASE_URL)
 MAX_ATTEMPTS = int(os.getenv("DB_WAIT_MAX_ATTEMPTS", "30"))
 SLEEP_SECONDS = float(os.getenv("DB_WAIT_SLEEP_SECONDS", "2"))
 
